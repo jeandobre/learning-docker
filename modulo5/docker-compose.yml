@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  app:
+    build: app/
+    envionment:
+      - "PORT=3001"
+    ports:
+      - '3000:3001'
+    networks:
+      nginx_vlan       
+
+  nginx:
+    build: loadbalancer/
+    ports:
+      - '80:3000'
+    networks:
+      nginx_vlan
+
+networks:
+  nginx_vlan:
+    driver: bridge
