@@ -1,22 +1,25 @@
 version: '3'
 
 services:
-  app:
-    build: app/
-    envionment:
-      - "PORT=3001"
+  app1:
+    build: app
+    container_name: node1
     ports:
-      - '3000:3001'
-    networks:
-      nginx_vlan       
+      - 3001:3000
 
+  app2:
+    build: app
+    container_name: node2
+    ports:
+      - 3002:3000
+
+  app3:
+    build: app
+    container_name: node3
+    ports:
+      - 3003:3000
+ 
   nginx:
-    build: loadbalancer/
+    build: loadbalancer
     ports:
-      - '80:3000'
-    networks:
-      nginx_vlan
-
-networks:
-  nginx_vlan:
-    driver: bridge
+      - 80:80
